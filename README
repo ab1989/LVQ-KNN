@@ -35,6 +35,8 @@ A. Pohlmann, M. Beer and D. Höper.(doi...)
         
             a) List::Util
             b) Time::Duration
+            
+    4.  Operating system: Linux (program was verified under CentOS 6/7)
 
 * SET UP
 
