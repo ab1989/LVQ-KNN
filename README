@@ -106,7 +106,7 @@ A. Pohlmann, M. Beer and D. Höper.(doi...)
 
 * USAGE
 
-If you want to do the whole analysis (training data, prototypes, test data and classification) run Main_v2.sh
+If you want to do the whole analysis (training data, prototypes, test data and classification) run Main.sh
 with your specified parameter settings. Alternatively both scripts can be run individually.
 
     1.  Whole analysis program running, using ./Main.sh
@@ -232,7 +232,8 @@ PROGRAM - FILE - STRUCTURE:
             
         Config.txt
         Hilfsprogramme.R
-        Main_v2.sh
+        input_info.txt
+        Main.sh
         README
         README.pdf
         
