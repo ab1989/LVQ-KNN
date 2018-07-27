@@ -2,17 +2,17 @@
 # creating training data sets and computing prototypes with LVQ
 
 #------------------------- Config
-. ~/Homelaufwerk/Eigene\ Dokumente/Paper/Abstracts/erster_Entwurf/Programm/Config.txt
+. ${path}/Config.txt
 
 #------------------------- Input, directory creation, and user information
-training=y
-prototypes=y
-composition=2
+#training=y
+#prototypes=y
+#composition=2
 
 unset projectname                                           # project directory name
 unset wdir                                                  # working directory
 
-while getopts o:p:t:l:f:c: opt 2>/dev/null            # input options
+while getopts o:p:t:l:f:c: opt 2>/dev/null                  # input options
     do                                                         
         case ${opt} in                                      # get input parameters
             o)                              
@@ -86,9 +86,24 @@ if [ "${training}" == "y" ]
         d=`date`
         echo -e "\n Done $d\n"                                                              2>&1 | tee -a ${wdir}/progress.log
     else
-        echo -e "Reference sequence oligonucleotide information file is copied to trainingdata"   2>&1 | tee -a ${wdir}/progress.log
-        cp ${trainingfiles}/training*.txt ${wdir}/trainingdata
-        echo -e "\n Done \n"                                                                2>&1 | tee -a ${wdir}/progress.log
+        txt=`ls ${trainingfiles} | grep .*.txt`
+        if [ -n txt ]                                                           # -n : Variable not empty
+            then
+                echo -e "Training file *.txt is copied to trainingdata"                              2>&1 | tee -a ${wdir}/progress.log
+                cp ${trainingfiles}/*.txt ${wdir}/trainingdata
+                echo -e "\n Done \n"                                                                2>&1 | tee -a ${wdir}/progress.log
+            else
+                echo -e "Please provide reference sequence oligonucleotide information file to trainingdata if not done yet"     2>&1 | tee -a ${wdir}/progress.log
+                exit
+        fi
+fi
+
+tests=`ls $wdir/trainingdata | grep "^training.*.txt"`
+
+if [ "${prototypes}" == "y" ] && [ -z "$tests" ]
+    then
+        echo "Please provide training dataset! Program will be terminated."                 2>&1 | tee -a ${wdir}/progress.log
+        exit
 fi
 
 if [ "${prototypes}" == "y" ]
@@ -98,42 +113,51 @@ if [ "${prototypes}" == "y" ]
         echo -e "This take a while..."                                                      2>&1 | tee -a ${wdir}/progress.log
         
         #-------------------------- LVQ - Algorithm with R: More than 2 classes possible
-        #export compseq
-        #export installdir
-        #export wdir
-        #export composition
-        #${rdir}/Rscript "${installdir}"/Prototype-computing/LVQ.R
+        export compseq
+        export installdir
+        export wdir
+        export composition
+        ${rdir}/Rscript "${installdir}"/Prototype-computing/LVQ.R                           2>&1 | tee -a ${wdir}/progress.log
         
         #-------------------------- LVQ - Algorithm with perl: just 2 classes possible
-        train=`ls ${wdir}/trainingdata | grep "training.*.txt"`
-        training=${wdir}/trainingdata/${train}
-        
-        if [ $composition == 2 ] # optimal values from validation - can be changed if necessary
-            then
-                T=15
-                n=500
-            elif [ $composition == 3 ]
-                then
-                    T=10
-                    n=500
-                else
-                    T=15
-                    n=1000
-        fi
-        
-        path=${wdir}/prototypes/
-        
-        export composition
-        export training
-        export path
-        export T
-        export n
-        "${installdir}"/Prototype-computing/LVQ.pl                                          2>&1 | tee -a ${wdir}/progress.log
+        #train=`ls ${wdir}/trainingdata | grep "^training.*.txt"`
+        #training=${wdir}/trainingdata/${train}
+        #
+        #if [ $composition == 2 ] # optimal values from validation - can be changed if necessary
+        #    then
+        #        T=15              #15
+        #        n=500              #500
+        #    elif [ $composition == 3 ]
+        #        then
+        #            T=10
+        #            n=500
+        #        else
+        #            T=15
+        #            n=1000
+        #fi
+        #
+        #path=${wdir}/prototypes/
+        #
+        #export composition
+        #export training
+        #export path
+        #export T
+        #export n
+        #"${installdir}"/Prototype-computing/LVQ.pl                                          2>&1 | tee -a ${wdir}/progress.log
         
         d=`date`
         echo -e "\n Done $d\n"                                                              2>&1 | tee -a ${wdir}/progress.log
     else
-        echo -e "Please provide your prototype set in the ${wdir}/prototypes directory!"    2>&1 | tee -a ${wdir}/progress.log
+        txt=`ls ${trainingfiles} | grep .*.txt`
+        if [ -n txt ]                                                           # -n : Variable not empty
+            then
+                echo -e "Prototype file *.txt is copied to prototypes"                              2>&1 | tee -a ${wdir}/progress.log
+                cp ${trainingfiles}/*.txt ${wdir}/prototypes
+                echo -e "\n Done \n"                                                                2>&1 | tee -a ${wdir}/progress.log
+            else
+                echo -e "Please provide your prototype set in the ${wdir}/prototypes directory if not done yet!"    2>&1 | tee -a ${wdir}/progress.log
+                exit
+        fi
 fi
 
 date2=`date`

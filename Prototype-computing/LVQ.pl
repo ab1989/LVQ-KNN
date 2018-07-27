@@ -141,8 +141,9 @@ for(@T){
                     $i++;
                 }
             }
+            $file =~ s/^.*.\///;
             my $path = $ENV{path};
-            my $file2 = join("",$path,"proto_",$oli,"_ls_",$T,"_apk_",$n,".txt");
+            my $file2 = join("",$path,"proto_",$oli,"_ls_",$T,"_apk_",$n,"_",$file);
             
             open( my $TEST2, ">", $file2);                   # oeffnen der Datei
                 local $" = "\t";

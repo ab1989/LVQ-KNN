@@ -58,7 +58,10 @@ LVQ <- function(df,apk,ls){
           
           #Klasse des Indizes c
           l <- inpk[c]
-          
+          #cat("-------------------------------------\n")
+          #cat("Klasse des aktuellen x[",j,"]: ",x[j,anzv],"\n")
+          #cat("Klasse des winning Prototype q[",c,"]",rownames(inp)[c],": ", l,"\n")
+          #cat("-------------------------------------\n")
           #Lernschritt
           if(x[j,anzv]==l){
               inp[c,] <- inp[c,] + alpha(i)*(as.numeric(x[j,c(1:(anzv-1))])-inp[c,])

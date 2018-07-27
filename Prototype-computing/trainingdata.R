@@ -59,7 +59,7 @@ trainingdata <- function(p,o){ # o = Oligonucleotide, Dinucleotide=2
 	  
       output[h[i],1:oli] <- read.table(b,fill=T)[3:(3+oli-1),5]
 	  #output[h[i],1:16] <- read.table(b,fill=T)[3:18,5]
-      rownames(output)[h[i]] <- attributes(seq[[i]])[[1]]
+      rownames(output)[h[i]] <- paste(fna2[j],attributes(seq[[i]])[[1]],sep="-")
       
       #Gruppenzuweisung
       
