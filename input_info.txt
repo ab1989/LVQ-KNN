@@ -1,0 +1,102 @@
+    1.  Whole analysis program running, using ./Main.sh
+    
+            -o  working directory, where the data of the analysis should be stored
+            
+            -p  project name of the current analysis (default: analysis_output)
+            
+            -t  should a training dataset be created (default: y)
+                    if y: reference sequences files are copied to /wdir/projectname/trainingdata
+                    if n: reference oligonucleotide information file is copied to /wdir/projectname/trainingdata
+            
+            -q  should a query dataset be created (default: y)
+                    if y: test sequences files are copied to /wdir/projectname/testdata
+                    if n: test oligonucleotide information file is copied to /wdir/projectname/testdata
+            
+            -l  should prototype datasets be computed (default: y)
+                    if y: LVQ method is employed to trainingdata to compute prototypes
+                    if n: prototype dataset should be stored in /wdir/projectname/prototypes by the USER
+            
+            -k  should classification results be created (default: y)
+                    if y: K-NN method is employed to testdata and prototype sets to classify the testdata
+                    if n: Nothing is done.
+            
+            -r  path to the reference file/s or the prototype set
+            
+            -u    path to query files
+            
+            -c  which oligonucleotide should be used for classification (default: 2)
+            
+        EXAMPLES:
+            
+            Main.sh -o ~/Analysis/ -p Test -t y -l y -r ~/References/ -u ~/Queries/ -c 3
+            
+                The analysis results are stored in ~/Analysis/Test/ (-o and -p).
+                The training dataset and prototypes are created/computed (-t y and -l y).
+                The analysis is based on trinucleotides (-c 3).
+                The classification is running by default (-q y and -k y).
+            
+        
+    2.  Training dataset creation and Prototype dataset computation with LVQ
+        using ./Prototype-computing/training_prototypes.sh
+            
+            -o  working directory, where the data of the analysis should be stored
+            
+            -p  project name of the current analysis
+            
+            -t  should a training dataset be created
+                    if y: reference sequences files are copied to /wdir/projectname/trainingdata
+                    if n: reference oligonucleotide information file is copied to /wdir/projectname/trainingdata
+            
+            -l  should prototype datasets be computed
+                    if y: LVQ method is employed to trainingdata to compute prototypes
+                    if n: prototype dataset should be stored in /wdir/projectname/prototypes by the USER
+            
+            -f  path to the reference file/s or the prototype set
+            
+            -c  which oligonucleotide should be used for classification
+            
+        EXAMPLES:
+            
+            training_prototypes.sh -o ~/Analysis/ -p Test -t y -l y -f ~/References/ -c 3
+            
+                The analysis results are stored in ~/Analysis/Test/ (-o and -p).
+                The training dataset and prototypes are created/computed (-t y -l y).
+                The analysis is based on trinucleotides (-c 3).
+                
+            training_prototypes.sh -o ~/Analysis/ -p Test -t n -l y -f ~/References/
+            
+                Only prototypes are computed, training dataset already exist(-t n -l y).
+                The analysis is based on dinucleotides, because -c is default 2.
+        
+        
+    3.  Test dataset creation and K-NN classification
+        using ./Prototype-computing/test-classification.sh
+
+            -o  working directory, where the data of the analysis should be stored
+            
+            -p  project name of the current analysis
+            
+            -t  should test datasets be created
+                    if y: test sequences files are copied to /wdir/projectname/testdata
+                    if n: test oligonucleotide information file is copied to /wdir/projectname/testdata
+            
+            -k  should classification results be created
+                    if y: K-NN method is employed to testdata and prototype sets to classify the testdata
+                    if n: Nothing is done.
+            
+            -f  path to the test file/s
+            
+            -c  which oligonucleotide should be used for classification
+            
+        EXAMPLES:
+            
+            test-classification.sh -o ~/Analysis/ -p Test -t y -k y -f ~/Testfiles/ -c 3
+            
+                The analysis results are stored in ~/Analysis/Test/ (-o and -p).
+                The test dataset and the classification are created (-t y -k y).
+                The analysis is based on trinucleotides (-c 3).
+                
+            test-classification.sh -o ~/Analysis/ -p Test -t n -k y -f ~/Testfiles/
+            
+                Only classification is executed, test dataset already exist(-t n -l y).
+                The analysis is based on dinucleotides, because -c is default 2.
