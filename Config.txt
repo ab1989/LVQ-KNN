@@ -1,0 +1,10 @@
+# Config.txt for L-KNN
+
+# for compseq usage
+embossdir=/home/Software/emboss/bin
+
+# for Rscript usage
+rdir=/home/Software/R-3.2.1/bin/
+
+# for L-KNN usage
+installdir=~/Homelaufwerk/Eigene\ Dokumente/Paper/Abstracts/erster_Entwurf/LVQ-KNN/
