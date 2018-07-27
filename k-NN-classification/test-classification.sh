@@ -2,12 +2,12 @@
 # creating test data sets and computing classification results with K-NN
 
 #------------------------- Config
-. ~/Homelaufwerk/Eigene\ Dokumente/Paper/Abstracts/erster_Entwurf/Programm/Config.txt
+. ${path}/Config.txt
 
 #------------------------- Input, directory creation, and user information
-test=y
-classification=y
-composition=2
+#test=y
+#classification=y
+#composition=2
 
 unset projectname                                           # project directory name
 unset wdir                                                  # working directory
@@ -27,9 +27,9 @@ while getopts o:p:t:k:c:f: opt 2>/dev/null                  # input options
                 composition=$OPTARG;;                       # information which oligonucleotide to use: default 2 (di); up to 4 sensible
             f)
                 testfiles=$OPTARG;;                         # full path directory of test sequence files / test oligonucleotide information
-            *)                                              # at unvalid input                                                                                                                        
+            *)                                              # at unvalid input
                 cat ${installdir}/input_info.txt            # show info and 
-                exit;;                                      # exit program                                                                                     
+                exit;;                                      # exit program
         esac                            
     done                        
 
@@ -86,10 +86,19 @@ if [ "${test}" == "y" ]
         d=`date`
         echo -e "\n Done $d\n"                                                              2>&1 | tee -a ${wdir}/progress.log
     else
-        echo -e "Test sequence oligonucleotide information file is copied to testdata"      2>&1 | tee -a ${wdir}/progress.log
-        cp ${testfiles}/test*.txt ${wdir}/testdata
+        echo -e "Please provide test sequence oligonucleotide information file to testdata if not done yet"      2>&1 | tee -a ${wdir}/progress.log
+        #cp ${testfiles}/test*.txt ${wdir}/testdata
         echo -e "\n Done \n"                                                                2>&1 | tee -a ${wdir}/progress.log
 fi
+
+tests1=`ls $wdir/testdata | grep "^test.*.txt"`
+tests2=`ls $wdir/prototypes | grep ".*.txt"`
+if ([ "${classification}" == "y" ]) && ([ -z "$tests1" ] || [ -z "$tests2" ])
+    then
+        echo "Please provide test dataset(s) or prototypes! Program will be terminated."                 2>&1 | tee -a ${wdir}/progress.log
+        exit
+fi
+
 
 if [ "${classification}" == "y" ]
     then

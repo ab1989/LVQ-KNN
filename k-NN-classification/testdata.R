@@ -5,10 +5,10 @@ testdata <- function(p,o){
     require(seqinr,quietly = T)
   
     #Dinukleotidinfos berechnen
-    #cat("WÃ¤hlen Sie den Pfad von Compseq.exe aus.\n")
+    #cat("Wählen Sie den Pfad von Compseq.exe aus.\n")
     path_compseq <- compseq
   
-    #Sequenzordner wÃ¤hlen
+    #Sequenzordner wählen
     path_seq <-p #Initialpfad
     
     #fna <- list.files(path_seq,pattern=".f") # listing of founded files
@@ -110,7 +110,7 @@ testdata <- function(p,o){
 		
         colnames(output) <<- colname
     
-        #Abspeichern der testdatensÃ¤tze
+        #Abspeichern der testdatensätze
         #return(output)
         write.table(output,file=paste(path_seq,"/test",idx,"_",name,"_",oliname,".txt",sep=""),dec=".",sep="\t",quote=F)
         idx <- idx+1
