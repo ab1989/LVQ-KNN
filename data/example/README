@@ -1,0 +1,48 @@
+This is an example description for using LVQ-KNN.
+
+Step-by-Step:
+1. Create a directory, where the training files are stored (path/to/training/).
+    WARNING:  LVQ-KNN needs for correct computation of prototypes two classes minimum.
+              Please provide files which are representing both (DNA/RNA) classes.
+              RefseqdsDNANP.fasta and RefseqBacteria.fasta are both containing just DNA-sequences,
+              another training file (e.g. RefseqdsRNAP.fasta) is needed to provide two classes.
+              
+2. Create a directory, where the test files are stored (path/to/test/).
+
+3. Now you can run the Main.sh as follows:
+    sh Main.sh -o ~/path/to/outputDirectories/ -p output1 -t y -l y
+        -r ~/anotherpath1/to/training-files-directory/
+        -u ~/anotherpath2/to/test-file(s)-directory/ -c 2
+        
+    INFO: path/to, anotherpath1 and anotherpath2 do not need to be the same. Create a comfort structure for you.
+    
+4. This should create a directory structure like follows:
+   ../outputDirectories (dir)
+          output1 (dir)
+              trainingdata (dir)
+                  RefseqdsRNANP.fasta (file)
+                  RefseqdsRNAP.fasta (file)
+                  Refseqss+RNAP.fasta (file)
+                  RefseqssDNANP.fast (file)
+                  sortedClasses.txt (file)
+                  training_di.txt
+              testdata (dir)
+                  RefseqssDNAP.fasta (file)
+                  Refseqss-RNANP.fasta (file)
+                  test1_Refseqss-RNANP_di.txt (file)
+                  test1_Refseqss-RNANP_err.log (file)
+                  test1_Refseqss-RNANP_rownames.log (file)
+                  test2_RefseqssDNANP_di.txt (file)
+                  test2_RefseqssDNANP_err.log (file)
+                  test2_RefseqssDNANP_rownames.log (file)
+              prototypes (dir)
+                  proto_di_ls_15_apk_50_tds_training_di.txt (file)
+              results (dir)
+                  result_test1_Refseqss-RNANP_di_ls_15_apk_50_di.ergeb (file)
+                  result_test2_RefseqssDNAP_di_ls_15_apk_50_di.ergeb (file)
+              progress.los (file)
+              result-compact.txt (file)
+
+5. Done.
+
+The results do not look very nice in this example (*.zip). It is just for testing whether everything was correctly set up.
