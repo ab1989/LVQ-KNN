@@ -9,13 +9,13 @@ Step-by-Step:
               
 2. Create a directory, where the test files are stored (path/to/test/).
 
+    INFO: Create a comfort structure for you to store input and result files.
+
 3. Now you can run the Main.sh as follows:
     sh Main.sh -o ~/path/to/outputDirectories/ -p output1 -t y -l y
-        -r ~/anotherpath1/to/training-files-directory/
-        -u ~/anotherpath2/to/test-file(s)-directory/ -c 2
+        -r ~/path/to/training-files-directory/
+        -u ~/path/to/test-file(s)-directory/ -c 2
         
-    INFO: path/to, anotherpath1 and anotherpath2 do not need to be the same. Create a comfort structure for you.
-    
 4. This should create a directory structure like follows:
    ../outputDirectories (dir)
           output1 (dir)
